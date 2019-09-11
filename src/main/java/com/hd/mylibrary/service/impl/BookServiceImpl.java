@@ -20,7 +20,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> retrieveBooks() {
-        return bookDAO.findAll();
+        List<Book> books= bookDAO.findAll();
+        System.out.println("samo");
+        return books;
     }
 
     @Override
