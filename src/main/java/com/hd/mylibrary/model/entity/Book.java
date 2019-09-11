@@ -121,16 +121,5 @@ public class Book extends BaseEntity {
         return Objects.hash(super.hashCode(), name, bookType, author, customer, year, bookLanguage, totalPage);
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "name='" + name + '\'' +
-                ", bookType=" + bookType +
-                ", author=" + author +
-                ", customer=" + customer +
-                ", year='" + year + '\'' +
-                ", bookLanguage=" + bookLanguage +
-                ", totalPage=" + totalPage +
-                '}';
-    }
+
 }
