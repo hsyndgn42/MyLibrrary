@@ -23,10 +23,12 @@ public class Book extends BaseEntity {
     private BookType bookType;
 
     @NotNull
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AUTHOR_ID")
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     @NotEmpty(message = "Year can not be empty.")

@@ -33,7 +33,7 @@ public class Author extends BaseEntity {
     @Column(name = "AGE", nullable = false)
     private int age;
 
-    @ManyToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author")
     private List<Book> books;
 
     public String getFirstName() {
