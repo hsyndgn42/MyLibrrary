@@ -1,15 +1,11 @@
 package com.hd.mylibrary.model.converter;
 
-import com.hd.mylibrary.model.entity.Author;
 import com.hd.mylibrary.model.entity.Book;
 import com.hd.mylibrary.model.request.CreateBookRequest;
 import com.hd.mylibrary.service.AuthorService;
 import com.hd.mylibrary.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class CreateBookRequestConverter {
