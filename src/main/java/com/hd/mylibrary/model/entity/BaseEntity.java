@@ -8,7 +8,8 @@ import java.util.Objects;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-    private static final long serialVersionUID = 7283436213983726181L;
+
+    private static final long serialVersionUID = -5447272714513280439L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
