@@ -1,12 +1,9 @@
 package com.hd.mylibrary.model.request;
 
-import com.hd.mylibrary.model.entity.Author;
-import com.hd.mylibrary.model.entity.Customer;
 import com.hd.mylibrary.model.enumerated.BookLanguage;
 import com.hd.mylibrary.model.enumerated.BookType;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
