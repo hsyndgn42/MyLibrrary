@@ -1,5 +1,6 @@
 package com.hd.mylibrary.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.converter.CreateAuthorRequestConverter;
 import com.hd.mylibrary.model.converter.CreateBookRequestConverter;
 import com.hd.mylibrary.model.entity.Author;
@@ -47,7 +48,8 @@ public class MyLibraryController {
 
     @GetMapping("/myLibrary/authors")
     public List<Author> getAuthors() {
-        return authorService.retrieveAuthors();
+       return authorService.retrieveAuthors();
+
     }
 
     @PostMapping(path = "/myLibrary/book")

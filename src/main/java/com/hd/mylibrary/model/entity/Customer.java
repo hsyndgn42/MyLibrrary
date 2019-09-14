@@ -1,12 +1,13 @@
 package com.hd.mylibrary.model.entity;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "CUSTOMER")
@@ -40,8 +41,9 @@ public class Customer extends BaseEntity {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Book> books;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Book> books;
+
 
     public String getFirstName() {
         return firstName;
@@ -91,11 +93,11 @@ public class Customer extends BaseEntity {
         this.address = address;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -111,7 +113,7 @@ public class Customer extends BaseEntity {
                 email.equals(customer.email) &&
                 phone.equals(customer.phone) &&
                 address.equals(customer.address) &&
-                 books.equals(customer.books);
+                books.equals(customer.books);
     }
 
     @Override

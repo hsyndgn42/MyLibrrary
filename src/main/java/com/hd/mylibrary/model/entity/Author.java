@@ -1,14 +1,12 @@
 package com.hd.mylibrary.model.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "AUTHOR")
@@ -33,8 +31,9 @@ public class Author extends BaseEntity {
     @Column(name = "AGE", nullable = false)
     private int age;
 
+
     @OneToMany(mappedBy = "author")
-    private List<Book> books;
+    private Set<Book> books;
 
     public String getFirstName() {
         return firstName;
@@ -68,12 +67,11 @@ public class Author extends BaseEntity {
         this.age = age;
     }
 
-
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -87,12 +85,12 @@ public class Author extends BaseEntity {
                 firstName.equals(author.firstName) &&
                 surname.equals(author.surname) &&
                 email.equals(author.email) &&
-                 books.equals(author.books);
+                books.equals(author.books);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, surname, email, age);
+        return Objects.hash(super.hashCode(), firstName, surname, email, age, books);
     }
 
     @Override
@@ -101,9 +99,8 @@ public class Author extends BaseEntity {
                 "firstName='" + firstName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age + '\'' +
-                 ", book=" + books +
+                ", age=" + age +
+                ", books=" + books +
                 '}';
-
     }
 }

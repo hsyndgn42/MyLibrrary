@@ -1,4 +1,8 @@
 package com.hd.mylibrary.model.dto;
 
-public class BaseDto {
+import java.io.Serializable;
+
+public class BaseDto implements Serializable {
+
+    private static final long serialVersionUID = 1661052409912599793L;
 }
