@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class CreateBookRequest implements Serializable {
 
-    private static final long serialVersionUID = -229548328174336427L;
+    private static final long serialVersionUID = 3373506455900076809L;
 
     @Valid
     @NotNull(message = "Name can not be null")

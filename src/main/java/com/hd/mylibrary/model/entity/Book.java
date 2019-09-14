@@ -1,6 +1,7 @@
 package com.hd.mylibrary.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.enumerated.BookLanguage;
 import com.hd.mylibrary.model.enumerated.BookType;
 
@@ -25,10 +26,12 @@ public class Book extends BaseEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
+    @JsonIgnore
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
+    @JsonIgnore
     private Customer customer;
 
     @NotEmpty(message = "Year can not be empty.")
