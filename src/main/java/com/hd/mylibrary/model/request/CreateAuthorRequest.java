@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class CreateAuthorRequest implements Serializable {
 
-    private static final long serialVersionUID = -229548328174336427L;
+    private static final long serialVersionUID = 2490115954313581732L;
 
     @Valid
     @NotNull(message = "FirstName can not be null")

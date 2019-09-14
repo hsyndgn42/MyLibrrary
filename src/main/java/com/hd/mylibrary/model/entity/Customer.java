@@ -1,6 +1,8 @@
 package com.hd.mylibrary.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -42,6 +44,7 @@ public class Customer extends BaseEntity {
     private String address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @JsonIgnore
     private Set<Book> books;
 
 

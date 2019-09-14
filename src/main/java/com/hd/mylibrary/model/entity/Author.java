@@ -1,5 +1,7 @@
 package com.hd.mylibrary.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -33,6 +35,7 @@ public class Author extends BaseEntity {
 
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnore
     private Set<Book> books;
 
     public String getFirstName() {
