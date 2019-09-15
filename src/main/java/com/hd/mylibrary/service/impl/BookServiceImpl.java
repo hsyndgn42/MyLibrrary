@@ -3,7 +3,9 @@ package com.hd.mylibrary.service.impl;
 import com.hd.mylibrary.model.dao.BookDAO;
 import com.hd.mylibrary.model.entity.Book;
 import com.hd.mylibrary.model.response.CreateBookResponse;
+import com.hd.mylibrary.service.AuthorService;
 import com.hd.mylibrary.service.BookService;
+import com.hd.mylibrary.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDAO bookDAO;
 
+    @Autowired
+    AuthorService authorService;
+
+    @Autowired
+    CustomerService customerService;
+
     @Override
     public List<Book> retrieveBooks() {
         List<Book> books = bookDAO.findAll();
@@ -28,12 +36,12 @@ public class BookServiceImpl implements BookService {
 
     public List<Book> retrieveBooksByAuthorId(Long authorId) {
 
-        return bookDAO.retrieveBooksByAuthorId(authorId);
+        return bookDAO.retrieveBooksByAuthorId(authorService.getAuthor(authorId));
     }
 
     @Override
     public List<Book> retrieveBooksByCustomerId(Long customerId) {
-        return bookDAO.retrieveBooksByCustomerId(customerId);
+        return bookDAO.retrieveBooksByCustomerId(customerService.getCustomer(customerId).get());
     }
 
     @Override
