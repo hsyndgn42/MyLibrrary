@@ -4,6 +4,8 @@ package com.hd.mylibrary.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.enumerated.BookLanguage;
 import com.hd.mylibrary.model.enumerated.BookType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -24,12 +26,13 @@ public class Book extends BaseEntity {
     private BookType bookType;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AUTHOR_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID", nullable = false,referencedColumnName = "AUTHOR_ID")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "CUSTOMER_ID")
     @JsonIgnore
     private Customer customer;
@@ -121,7 +124,7 @@ public class Book extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, bookType, author, customer, year, bookLanguage, totalPage);
+        return Objects.hash(super.hashCode(), name, bookType, customer, year, bookLanguage, totalPage);
     }
 
     @Override
@@ -129,8 +132,8 @@ public class Book extends BaseEntity {
         return "Book{" +
                 "name='" + name + '\'' +
                 ", bookType=" + bookType +
-                ", author=" + author +
-                ", customer=" + customer +
+                ", authorId=" + author.getId().toString() +
+                ", customerId=" + customer.getId().toString() +
                 ", year='" + year + '\'' +
                 ", bookLanguage=" + bookLanguage +
                 ", totalPage=" + totalPage +

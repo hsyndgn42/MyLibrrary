@@ -2,7 +2,6 @@ package com.hd.mylibrary.service.impl;
 
 import com.hd.mylibrary.model.dao.BookDAO;
 import com.hd.mylibrary.model.entity.Book;
-import com.hd.mylibrary.model.response.CreateAuthorResponse;
 import com.hd.mylibrary.model.response.CreateBookResponse;
 import com.hd.mylibrary.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -20,8 +20,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> retrieveBooks() {
-        List<Book> books= bookDAO.findAll();
-        System.out.println("samo");
+        List<Book> books = bookDAO.findAll();
         return books;
     }
 
@@ -45,12 +44,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public CreateBookResponse saveBook(Book book) {
 
-        try{
+        try {
             bookDAO.save(book);
-        }catch (Exception e){
-            return new CreateBookResponse("Fail" ,"Error : "+e.toString());
+        } catch (Exception e) {
+            return new CreateBookResponse("Fail", "Error : " + e.toString());
         }
-        return new CreateBookResponse ("Success" ,"Book created successfully.");
+        return new CreateBookResponse("Success", "Book created successfully.");
 
     }
 
@@ -62,5 +61,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) {
         bookDAO.save(book);
+    }
+
+    public void updateBooks(Set<Book> books) {
+        bookDAO.saveAll(books);
     }
 }

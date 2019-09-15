@@ -3,14 +3,19 @@ package com.hd.mylibrary.controller;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.converter.CreateAuthorRequestConverter;
 import com.hd.mylibrary.model.converter.CreateBookRequestConverter;
+import com.hd.mylibrary.model.converter.CreateCustomerRequestConverter;
 import com.hd.mylibrary.model.entity.Author;
 import com.hd.mylibrary.model.entity.Book;
+import com.hd.mylibrary.model.entity.Customer;
 import com.hd.mylibrary.model.request.CreateAuthorRequest;
 import com.hd.mylibrary.model.request.CreateBookRequest;
+import com.hd.mylibrary.model.request.CreateCustomerRequest;
 import com.hd.mylibrary.model.response.CreateAuthorResponse;
 import com.hd.mylibrary.model.response.CreateBookResponse;
+import com.hd.mylibrary.model.response.CreateCustomerResponse;
 import com.hd.mylibrary.service.AuthorService;
 import com.hd.mylibrary.service.BookService;
+import com.hd.mylibrary.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,18 +30,24 @@ public class MyLibraryController {
 
     private CreateAuthorRequestConverter createAuthorRequestConverter;
     private CreateBookRequestConverter createBookRequestConverter;
+    private CreateCustomerRequestConverter createCustomerRequestConverter;
     private AuthorService authorService;
     private BookService bookService;
+    private CustomerService customerService;
 
     @Autowired
     public MyLibraryController( CreateAuthorRequestConverter createAuthorRequestConverter,
                                  CreateBookRequestConverter createBookRequestConverter,
+                                CreateCustomerRequestConverter createCustomerRequestConverter,
                                AuthorService authorService,
-                                BookService bookService) {
+                                BookService bookService,
+                                CustomerService customerService) {
         this.createAuthorRequestConverter = createAuthorRequestConverter;
         this.authorService = authorService;
         this.createBookRequestConverter = createBookRequestConverter;
         this.bookService = bookService;
+        this.createCustomerRequestConverter = createCustomerRequestConverter;
+        this.customerService = customerService;
     }
 
     @PostMapping(path = "/myLibrary/author")
@@ -62,6 +73,18 @@ public class MyLibraryController {
     @GetMapping("/myLibrary/books")
     public List<Book> getBooks() {
         return bookService.retrieveBooks();
+    }
+
+    @PostMapping(path = "/myLibrary/customer")
+    public String saveCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest){
+
+        CreateCustomerResponse createCustomerResponse = customerService.saveCustomer(createCustomerRequestConverter.convert(createCustomerRequest));
+        return createCustomerResponse.toString();
+    }
+
+    @GetMapping("/myLibrary/customers")
+    public List<Customer> getCustomers() {
+        return customerService.retrieveCustomers();
     }
 
 

@@ -34,7 +34,7 @@ public class Author extends BaseEntity {
     private int age;
 
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JsonIgnore
     private Set<Book> books;
 
@@ -93,7 +93,7 @@ public class Author extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, surname, email, age, books);
+        return Objects.hash(super.hashCode(), firstName, surname, email, age);
     }
 
     @Override
