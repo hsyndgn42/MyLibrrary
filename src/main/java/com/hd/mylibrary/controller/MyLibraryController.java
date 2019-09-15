@@ -17,10 +17,7 @@ import com.hd.mylibrary.service.AuthorService;
 import com.hd.mylibrary.service.BookService;
 import com.hd.mylibrary.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -85,6 +82,16 @@ public class MyLibraryController {
     @GetMapping("/myLibrary/customers")
     public List<Customer> getCustomers() {
         return customerService.retrieveCustomers();
+    }
+
+    @GetMapping("/myLibrary/author/books")
+    public List<Book> getBooksByAuthorId(@RequestParam Long authorId) {
+        return authorService.getBooks(authorId);
+    }
+
+    @GetMapping("/myLibrary/customer/books")
+    public List<Book> getBooksByCustomerId(@RequestParam Long customerId) {
+        return customerService.retrieveRentBooks(customerId);
     }
 
 
