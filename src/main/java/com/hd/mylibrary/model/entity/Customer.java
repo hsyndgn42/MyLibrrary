@@ -2,12 +2,10 @@ package com.hd.mylibrary.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,7 +22,7 @@ public class Customer extends BaseEntity {
     @Column(name = "SURNAME", nullable = false)
     private String surname;
 
-    @NotEmpty
+    @NotNull
     @Min(value = 18, message = "Age can not be less than 18.")
     @Column(name = "AGE", nullable = false)
     private int age;
@@ -43,7 +41,7 @@ public class Customer extends BaseEntity {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JsonIgnore
     private Set<Book> books;
 

@@ -25,7 +25,8 @@ public class CreateCustomerRequestConverter {
         customer.setEmail(createCustomerRequest.getEmail());
         customer.setPhone(createCustomerRequest.getPhone());
         Set<Book> books = new HashSet<>();
-        books.add(bookService.getBook(createCustomerRequest.getBookId()).get());
+        for(Long ids:createCustomerRequest.getBookIds())
+         books.add(bookService.getBook(ids).get());
         customer.setBooks(books);
 
         return customer;

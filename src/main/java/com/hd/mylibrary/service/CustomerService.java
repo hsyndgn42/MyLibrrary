@@ -2,6 +2,7 @@ package com.hd.mylibrary.service;
 
 import com.hd.mylibrary.model.entity.Book;
 import com.hd.mylibrary.model.entity.Customer;
+import com.hd.mylibrary.model.response.CreateCustomerResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface CustomerService {
 
     public Optional<Customer> getCustomer(Long customerId);
 
-    public void saveCustomer(Customer customer);
+    public CreateCustomerResponse saveCustomer(Customer customer);
 
     public void deleteCustomer(Long customerId);
 

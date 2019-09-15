@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 public class CreateCustomerRequest implements Serializable {
 
@@ -39,7 +40,7 @@ public class CreateCustomerRequest implements Serializable {
 
     @Valid
     @NotNull(message = "Book can not be null")
-    private Long bookId;
+    private Set<Long> bookIds;
 
     public String getFirstName() {
         return firstName;
@@ -89,12 +90,12 @@ public class CreateCustomerRequest implements Serializable {
         this.address = address;
     }
 
-    public Long getBookId() {
-        return bookId;
+    public Set<Long> getBookIds() {
+        return bookIds;
     }
 
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setBookId(Set<Long> bookIds) {
+        this.bookIds = bookIds;
     }
 
     @Override
@@ -108,12 +109,12 @@ public class CreateCustomerRequest implements Serializable {
                 email.equals(that.email) &&
                 phone.equals(that.phone) &&
                 address.equals(that.address) &&
-                bookId.equals(that.bookId);
+                bookIds.equals(that.bookIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, surname, age, email, phone, address, bookId);
+        return Objects.hash(firstName, surname, age, email, phone, address, bookIds);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class CreateCustomerRequest implements Serializable {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", bookId=" + bookId +
+                ", bookId=" + bookIds +
                 '}';
     }
 }
