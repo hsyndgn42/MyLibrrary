@@ -1,6 +1,5 @@
 package com.hd.mylibrary.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.converter.CreateAuthorRequestConverter;
 import com.hd.mylibrary.model.converter.CreateBookRequestConverter;
 import com.hd.mylibrary.model.converter.CreateCustomerRequestConverter;
@@ -16,7 +15,10 @@ import com.hd.mylibrary.model.response.CreateCustomerResponse;
 import com.hd.mylibrary.service.AuthorService;
 import com.hd.mylibrary.service.BookService;
 import com.hd.mylibrary.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @RestController
 public class MyLibraryController {
+
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     private CreateAuthorRequestConverter createAuthorRequestConverter;
     private CreateBookRequestConverter createBookRequestConverter;
@@ -33,12 +37,12 @@ public class MyLibraryController {
     private CustomerService customerService;
 
     @Autowired
-    public MyLibraryController( CreateAuthorRequestConverter createAuthorRequestConverter,
-                                 CreateBookRequestConverter createBookRequestConverter,
-                                CreateCustomerRequestConverter createCustomerRequestConverter,
+    public MyLibraryController(CreateAuthorRequestConverter createAuthorRequestConverter,
+                               CreateBookRequestConverter createBookRequestConverter,
+                               CreateCustomerRequestConverter createCustomerRequestConverter,
                                AuthorService authorService,
-                                BookService bookService,
-                                CustomerService customerService) {
+                               BookService bookService,
+                               CustomerService customerService) {
         this.createAuthorRequestConverter = createAuthorRequestConverter;
         this.authorService = authorService;
         this.createBookRequestConverter = createBookRequestConverter;
@@ -48,7 +52,7 @@ public class MyLibraryController {
     }
 
     @PostMapping(path = "/myLibrary/author")
-    public String saveAuthor(@RequestBody @Valid CreateAuthorRequest createAuthorRequest){
+    public String saveAuthor(@RequestBody @Valid CreateAuthorRequest createAuthorRequest) {
 
         CreateAuthorResponse createAuthorResponse = authorService.saveAuthor(createAuthorRequestConverter.convert(createAuthorRequest));
         return createAuthorResponse.toString();
@@ -56,12 +60,12 @@ public class MyLibraryController {
 
     @GetMapping("/myLibrary/authors")
     public List<Author> getAuthors() {
-       return authorService.retrieveAuthors();
+        return authorService.retrieveAuthors();
 
     }
 
     @PostMapping(path = "/myLibrary/book")
-    public String saveBook(@RequestBody @Valid CreateBookRequest createBookRequest){
+    public String saveBook(@RequestBody @Valid CreateBookRequest createBookRequest) {
 
         CreateBookResponse createBookResponse = bookService.saveBook(createBookRequestConverter.convert(createBookRequest));
         return createBookResponse.toString();
@@ -73,11 +77,12 @@ public class MyLibraryController {
     }
 
     @PostMapping(path = "/myLibrary/customer")
-    public String saveCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest){
+    public String saveCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest) {
 
         CreateCustomerResponse createCustomerResponse = customerService.saveCustomer(createCustomerRequestConverter.convert(createCustomerRequest));
         return createCustomerResponse.toString();
     }
+
 
     @GetMapping("/myLibrary/customers")
     public List<Customer> getCustomers() {
@@ -89,8 +94,10 @@ public class MyLibraryController {
         return authorService.getBooks(authorId);
     }
 
+    @Cacheable(value = "customers",key = "#customerId")
     @GetMapping("/myLibrary/customer/books")
     public List<Book> getBooksByCustomerId(@RequestParam Long customerId) {
+        LOG.info("Getting customer's books with customerId {}.", customerId);
         return customerService.retrieveRentBooks(customerId);
     }
 

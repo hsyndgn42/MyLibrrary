@@ -2,7 +2,6 @@ package com.hd.mylibrary.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -41,7 +40,7 @@ public class Customer extends BaseEntity {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Book> books;
 
