@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "60b5e7ed-01f4-417e-8726-7d38b953b77d",
+		"name": "MyLibrary",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateAuthor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"age\": 30,\n  \"email\": \"author1@gmail.com\",\n  \"firstName\": \"author1\",\n  \"surname\": \"surname1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/myLibrary/author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myLibrary",
+						"author"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAuthors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"author\": 0,\n  \"bookLanguage\": \"English\",\n  \"bookType\": \"Action\",\n  \"customer\": 0,\n  \"name\": \"string\",\n  \"page\": 0,\n  \"year\": \"string\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/myLibrary/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myLibrary",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"author\":1,\n  \"bookLanguage\": \"English\",\n  \"bookType\": \"Action\",\n  \"name\": \"string6\",\n  \"page\": 100,\n  \"year\": \"string\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/myLibrary/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myLibrary",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/myLibrary/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myLibrary",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooksByAuthorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooksByCustomerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/myLibrary/author/books?authorId=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myLibrary",
+						"author",
+						"books"
+					],
+					"query": [
+						{
+							"key": "authorId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
