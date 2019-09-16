@@ -37,17 +37,17 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             customerDAO.save(customer);
 
-            for (Book book : customer.getBooks()){
+            for (Book book : customer.getBooks()) {
                 book.setCustomer(customer);
                 books.add(book);
             }
         } catch (Exception e) {
             return new CreateCustomerResponse("Fail", "Error : " + e.toString());
         }
-        try{
+        try {
             bookService.updateBooks(books);
-        }catch (Exception e){
-            return new CreateCustomerResponse("Fail","Books update error : "+e.toString());
+        } catch (Exception e) {
+            return new CreateCustomerResponse("Fail", "Books update error : " + e.toString());
         }
         return new CreateCustomerResponse("Success", "Book created successfully.");
 
