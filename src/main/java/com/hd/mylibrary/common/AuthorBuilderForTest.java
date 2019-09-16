@@ -4,6 +4,7 @@ import com.hd.mylibrary.model.entity.Author;
 
 public class AuthorBuilderForTest {
 
+
     public Author buildAuthor() {
 
         Author author = new Author();
@@ -12,6 +13,8 @@ public class AuthorBuilderForTest {
         author.setEmail("test@test.com");
         author.setFirstName("TEST");
         author.setSurname("TEST");
+
+
         return author;
     }
 
