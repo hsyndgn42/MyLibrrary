@@ -1,12 +1,6 @@
 package com.hd.mylibrary.common;
 
-import com.hd.mylibrary.model.entity.Book;
 import com.hd.mylibrary.model.entity.Customer;
-import com.hd.mylibrary.model.enumerated.BookLanguage;
-import com.hd.mylibrary.model.enumerated.BookType;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CustomerBuilderForTest {
 
