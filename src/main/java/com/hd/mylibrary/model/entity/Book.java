@@ -32,7 +32,7 @@ public class Book extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ID")
     @JsonIgnore
     private Customer customer;
