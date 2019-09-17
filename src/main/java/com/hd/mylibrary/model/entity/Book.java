@@ -1,6 +1,7 @@
 package com.hd.mylibrary.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.enumerated.BookLanguage;
 import com.hd.mylibrary.model.enumerated.BookType;
@@ -28,8 +29,8 @@ public class Book extends BaseEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "AUTHOR_ID", nullable = false,referencedColumnName = "AUTHOR_ID")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Author author;
 
     @ManyToOne(fetch=FetchType.EAGER)
@@ -107,36 +108,4 @@ public class Book extends BaseEntity {
         this.totalPage = totalPage;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Book book = (Book) o;
-        return totalPage == book.totalPage &&
-                name.equals(book.name) &&
-                bookType == book.bookType &&
-                author.equals(book.author) &&
-                customer.equals(book.customer) &&
-                year.equals(book.year) &&
-                bookLanguage == book.bookLanguage;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, bookType, customer, year, bookLanguage, totalPage);
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "name='" + name + '\'' +
-                ", bookType=" + bookType +
-                ", authorId=" + author.getId().toString() +
-                ", customerId=" + customer.getId().toString() +
-                ", year='" + year + '\'' +
-                ", bookLanguage=" + bookLanguage +
-                ", totalPage=" + totalPage +
-                '}';
-    }
 }

@@ -2,6 +2,8 @@ package com.hd.mylibrary.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -40,8 +42,8 @@ public class Customer extends BaseEntity {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Book> books;
 
 
