@@ -19,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,10 +29,8 @@ public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
-
     @Autowired
     private BookService bookService;
-
     @Autowired
     private CustomerDAO customerDAO;
     @Autowired
@@ -52,7 +49,9 @@ public class CustomerServiceTest {
         Book book = booksBuilderForTest.buildBooks();
         Customer customer = customerBuilderForTest.buildCustomer();
         book.setAuthor(author);
-        book.setCustomer(customer);
+        Set<Book> books = new HashSet<Book>();
+        books.add(book);
+        customer.setBooks(books);
         authorDAO.save(author);
         customerDAO.save(customer);
         bookDAO.save(book);
