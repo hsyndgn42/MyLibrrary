@@ -4,6 +4,7 @@ import com.hd.mylibrary.model.entity.Customer;
 
 public class CustomerBuilderForTest {
 
+
     public Customer buildCustomer() {
 
         Customer customer = new Customer();
@@ -13,6 +14,7 @@ public class CustomerBuilderForTest {
         customer.setAddress("Test");
         customer.setSurname("Test");
         customer.setFirstName("Test");
+
 
         return customer;
     }

@@ -9,6 +9,7 @@ import com.hd.mylibrary.model.dao.CustomerDAO;
 import com.hd.mylibrary.model.entity.Author;
 import com.hd.mylibrary.model.entity.Book;
 import com.hd.mylibrary.model.entity.Customer;
+import com.hd.mylibrary.service.BookService;
 import com.hd.mylibrary.service.CustomerService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,6 +30,9 @@ public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private BookService bookService;
 
     @Autowired
     private CustomerDAO customerDAO;
@@ -44,17 +49,13 @@ public class CustomerServiceTest {
         AuthorBuilderForTest authorBuilderForTest = new AuthorBuilderForTest();
         CustomerBuilderForTest customerBuilderForTest = new CustomerBuilderForTest();
         Author author = authorBuilderForTest.buildAuthor();
-        authorDAO.save(author);
         Book book = booksBuilderForTest.buildBooks();
-        book.setAuthor(author);
-        bookDAO.save(book);
-        Set<Book> books = new HashSet<>();
-        books.add(book);
         Customer customer = customerBuilderForTest.buildCustomer();
-        customer.setBooks(books);
-        customerDAO.save(customer);
+        book.setAuthor(author);
         book.setCustomer(customer);
-        bookDAO.save(book);  // for update customerId
+        authorDAO.save(author);
+        customerDAO.save(customer);
+        bookDAO.save(book);
         Optional<Customer> foundCustomer = customerService.getCustomer(customer.getId());
 
         Assert.assertTrue(foundCustomer.isPresent());
@@ -69,20 +70,18 @@ public class CustomerServiceTest {
         AuthorBuilderForTest authorBuilderForTest = new AuthorBuilderForTest();
         CustomerBuilderForTest customerBuilderForTest = new CustomerBuilderForTest();
         Author author = authorBuilderForTest.buildAuthor();
-        authorDAO.save(author);
         Book book = booksBuilderForTest.buildBooks();
-        book.setAuthor(author);
-        bookDAO.save(book);
-        Set<Book> books = new HashSet<>();
-        books.add(book);
         Customer customer = customerBuilderForTest.buildCustomer();
-        customer.setBooks(books);
-        customerDAO.save(customer);
+        book.setAuthor(author);
         book.setCustomer(customer);
-        bookDAO.save(book); // for update customerId
+        authorDAO.save(author);
+        customerDAO.save(customer);
+        bookDAO.save(book);
 
+        Set<Book> books = new HashSet<>();
+        books.add(bookService.retrieveBooks().get(0));
         Set<Book> foundBooks = new HashSet<>(customerService.retrieveRentBooks(customer.getId()));
-        Assert.assertEquals(books.toString(), foundBooks.toString());
+        Assert.assertEquals(books.stream().findFirst().get().getId(), foundBooks.stream().findFirst().get().getId());
 
     }
 

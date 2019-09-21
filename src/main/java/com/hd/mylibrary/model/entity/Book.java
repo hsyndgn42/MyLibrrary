@@ -2,7 +2,6 @@ package com.hd.mylibrary.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hd.mylibrary.model.enumerated.BookLanguage;
 import com.hd.mylibrary.model.enumerated.BookType;
 import org.hibernate.annotations.OnDelete;
@@ -11,7 +10,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Entity
 @Table(name = "BOOK")
@@ -28,14 +26,14 @@ public class Book extends BaseEntity {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "AUTHOR_ID", nullable = false,referencedColumnName = "AUTHOR_ID")
+    @JoinColumn(name = "AUTHOR_ID", nullable = false, referencedColumnName = "AUTHOR_ID")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
     private Author author;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "CUSTOMER_ID")
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+    @JsonBackReference
     private Customer customer;
 
     @NotEmpty(message = "Year can not be empty.")

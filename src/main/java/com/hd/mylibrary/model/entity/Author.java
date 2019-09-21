@@ -1,6 +1,6 @@
 package com.hd.mylibrary.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -34,8 +34,8 @@ public class Author extends BaseEntity {
     private int age;
 
 
-    @OneToMany(mappedBy = "author",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Book> books;
 
     public String getFirstName() {
@@ -103,7 +103,7 @@ public class Author extends BaseEntity {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", books=" + books +
+                ", books=" + books.toString() +
                 '}';
     }
 }
